@@ -7,11 +7,15 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ViewPagerAndroid } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { PagerDotIndicator, IndicatorViewPager } from 'rn-viewpager';
+
+import { SOURCE } from './components/CurrentElectricityValue';
 import CurentLocation from './components/CurrentLocation'
 import CurrentWeather from './components/CurrentWeather';
 import CurrentMoment from './components/CurrentMoment';
-import { PagerDotIndicator, IndicatorViewPager } from 'rn-viewpager';
+import CurrentElectricityValue from './components/CurrentElectricityValue';
+import CurrentPowerPercentage from './components/CurrentPowerPercentage';
 
 
 export default class App extends Component {
@@ -32,10 +36,13 @@ export default class App extends Component {
           style={styles.viewPager}
           indicator={this._renderDotIndicator()}>
           <View style={styles.pageStyle}>
-            <Text>page one</Text>
-          </View>
-          <View style={styles.pageStyle}>
-            <Text>page two</Text>
+            <View style={styles.electricValues}>
+              <CurrentElectricityValue type={SOURCE} value='3456.7' unit='MWh' description='This month' />
+              <CurrentElectricityValue type={SOURCE} value='9821.3' unit='kWh' description='Today' />
+            </View>
+            <View style={styles.electricValues}>
+              <CurrentPowerPercentage />
+            </View>
           </View>
         </IndicatorViewPager>
       </View >
@@ -64,7 +71,16 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   pageStyle: {
-    backgroundColor: 'cadetblue',
-    padding: 20
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: '#18161a',
+    paddingVertical: 10,
+    paddingHorizontal: 40
+  },
+  electricValues: {
+    flex: 0,
+    justifyContent: 'space-evenly',
+    backgroundColor: '#18161a'
   }
 });
