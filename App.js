@@ -16,6 +16,7 @@ import CurrentWeather from './components/CurrentWeather';
 import CurrentMoment from './components/CurrentMoment';
 import CurrentElectricityValue from './components/CurrentElectricityValue';
 import CurrentPowerPercentage from './components/CurrentPowerPercentage';
+import PowerLineChart from './components/PowerLineChart'
 
 
 export default class App extends Component {
@@ -45,6 +46,10 @@ export default class App extends Component {
             </View>
           </View>
         </IndicatorViewPager>
+
+        <View style={styles.chart}>
+          <PowerLineChart />
+        </View>
       </View >
     );
   }
@@ -64,6 +69,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 71,
+  },
+  chart: {
+    flex: 1
   },
   viewPager: {
     height: 200,
