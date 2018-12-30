@@ -24,7 +24,7 @@ const initialState = {
     temperature: 0,
     humidity: 0
   },
-  location: '',
+  location: 'Seoul, South Korea',
   solarEnergy: {
     thisMonth: 0,
     today: 0,

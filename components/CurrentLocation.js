@@ -1,5 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
+
 import image from '../images/location.png';
 import { StyleSheet, View, Text, Image } from 'react-native';
 
@@ -33,5 +35,9 @@ CurrentLocation.propTypes = {
   location: PropTypes.string.isRequired
 }
 
+const mapStateToProps = state => ({
+  location: state.location
+})
 
-export default CurrentLocation;
+
+export default connect(mapStateToProps)(CurrentLocation);

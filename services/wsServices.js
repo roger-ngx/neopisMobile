@@ -1,9 +1,10 @@
 import socketio from 'socket.io-client';
-import productConfService from './productConfService';
-import Store from '../store/store';
 import _ from 'lodash';
-import logger from '../utils/logger'
 
+import Store from '../store/store';
+import prodConf from '../productConf.json';
+
+import logger from '../utils/logger'
 const log = logger.getLogger('wsService');
 /*
 wsService 센서 등록 컨셉:
@@ -45,7 +46,6 @@ let wrappedCallbacks = {};
 let WS_USE_DEDICATED_SERVER = false;
 const UNREGISTER_DELAY = 30000; // 30 seconds
 
-const prodConf = productConfService.getConfig();
 if (prodConf && prodConf.websocket && prodConf.websocket.subDomain !== wsSubdomain) {
   WS_USE_DEDICATED_SERVER = true;
   wsSubdomain = prodConf.websocket.subDomain;

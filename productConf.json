@@ -1,0 +1,98 @@
+{
+  "rootDomain": "thingplus.net",
+  "homepageURL": "https://thingplus.net",
+  "copyright": "Powered by Thing+",
+  "defaultContact": "contact@thingplus.net",
+  "showTerms": true,
+  "showPrivacy": true,
+  "showAddHomescreen": true,
+  "showChangePassword": true,
+  "showUserRegister": true,
+  "showGuide": true,
+  "showCompanyLogo": false,
+  "showComments": false,
+  "showSensorReport": false,
+  "showCustomizedFields": false,
+  "isAdditionalFieldsAvailable": false,
+  "allowRegisterGatewayWithCert": true,
+  "websocket": {
+    "subDomain": "ws"
+  },
+  "systemMgmt": {
+    "useDashboard": true,
+    "useELK": true
+  },
+  "serviceMgmt": {
+    "defaultRuleAgents": ["gatewayStatus", "sensorStatus", "multiScheduler", "time", "webPush", "email"],
+    "defaultRuleTemplates":["dailyReport", "gatewayStatusWebPush", "temperatureEmail"]
+  },
+  "map": {
+    "use": true,
+    "multiProvider": {
+      "use": false,
+      "providers": [
+        "google", "baidu"
+      ]
+    }
+  },
+  "mobile": {
+    "use": true
+  },
+  "intercom": {
+    "use": true,
+    "appID": "wzghgw7r"
+  },
+  "slack": {
+    "use": true,
+    "url": "https://slack.com/oauth/pick_reflow?client_id=2161421552.44127258183&redirect_uri=https://www.thingplus.net/api/ext/slack/app/redirect&response_type=code&scope=identify,chat:write:bot,channels:read,groups:read&state=user"
+  },
+  "userProfileLanguages": {
+    "ko": "한국어",
+    "en": "English",
+    "zh": "中文",
+    "ja": "日本語",
+    "es": "español",
+    "pt": "português",
+    "fr": "Français"
+  },
+  "userProfileCountries": {
+    "kr": {
+      "name": "South Korea(대한민국)",
+      "code": "+82",
+      "needVerify": true
+    },
+    "us": {
+      "name": "United States",
+      "code": "+1",
+      "noSms": true
+    },
+    "vn": {
+      "name": "Vietnam",
+      "code": "+84",
+      "needVerify": true
+    },
+    "es": {
+      "name": "Spain",
+      "code": "+34",
+      "needVerify": true,
+      "noSms": true
+    },
+    "uk": {
+      "name": "United Kingdom",
+      "code": "+44",
+      "needVerify": true,
+      "noSms": true
+    },
+    "cz": {
+      "name": "Czech Republic",
+      "code": "+420",
+      "needVerify": true,
+      "noSms": true
+    },
+    "jp": {
+      "name": "Japan",
+      "code": "+81",
+      "needVerify": true
+    }
+  }
+}

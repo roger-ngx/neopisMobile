@@ -20,6 +20,7 @@ if(__DEV__) {
   import('../ReactotronConfig').then(() => console.log('Reactotron Configured'))
 }
 
+import sensorService from '../services/sensorService';
 export default class Dashboard extends Component {
 
   constructor(props) {
@@ -34,16 +35,9 @@ export default class Dashboard extends Component {
   }
 
   componentDidMount() {
-    fetch('https://api.thingplus.net/v2/gateways/080027a081e6', {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiI5MjY5IiwiY2xpZW50SWQiOiJuZW9waXMiLCJpYXQiOjE1NDU3MjAwMjcsImV4cCI6MTU0NzAxNjAyN30.7RBda_sXQuqd_TPbmar-22bdED9ocSYXz43boQLumeM'
-      }
-    })
-    .then(res => res.json())
-    .then(res => this.setState({
-      location: _.get(res, 'data.location.address', 'Seoul, South Korea')
-    }));
+    // sensorService.getGatewayInfo('080027a081e6').then(res => this.setState({
+    //   location: _.get(res.data, 'data.location.address', 'Seoul, South Korea')
+    // }));
   }
 
   render() {
