@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ART, StyleSheet } from 'react-native';
+import { ART, StyleSheet, Dimensions } from 'react-native';
 const { Surface, Group, Shape, Text, Path } = ART;
 import * as d3 from 'd3';
 
@@ -47,7 +47,7 @@ const XAxis = props => {
                 x={xScale(tick)}>
                 <Shape stroke="#525252" strokeWidth={0.5} shapeRendering='crispEdges' d={getPaths()} />
                 <Text font={`13px "Helvetica Neue", "Helvetica", Arial`}
-                    fill="#525252" y={10}>{xScale.tickFormat('%Y')(tick)}</Text>
+                    fill="#525252" x={-15} y={10}>{xScale.tickFormat('%Y')(tick)}</Text>
             </Group>)
         }
     </Group>
@@ -89,7 +89,7 @@ const YAxis = props => {
 
 const Line = props => {
     const line = d3.line()
-        .curve(d3.curveCatmullRomOpen)
+        //.curve(d3.curveCatmullRomOpen)
         .x(d => props.xScale(d.time))
         .y(d => props.yScale(d.value))
         .defined(d => d.value != null);
@@ -301,15 +301,17 @@ class PowerLineChart extends Component {
         this.chartArea = React.createRef();
         this.gradients = ['red', 'green', 'blue'];
         this.margin = {
-            top: 30,
+            top: 20,
             right: 20,
             bottom: 25,
-            left: 20
+            left: 10
         };
 
+        var {height, width} = Dimensions.get('window');
+
         this.state = {
-            width: 350,
-            height: 400,
+            width: width - 2 * this.margin.left,
+            height: 320,
             data: [
                 {
                     name: "USA",
@@ -376,8 +378,8 @@ class PowerLineChart extends Component {
 
     render() {
 
-        return <Surface width={this.state.width} height={this.state.height + 100}>
-            <Group y={this.margin.top}>
+        return <Surface width={this.state.width + 20} height={this.state.height + 100}>
+            <Group x={this.margin.left} y={this.margin.top}>
 
                 <XAxis width={this.state.width} height={this.state.height} data={this.state.data} />
 
