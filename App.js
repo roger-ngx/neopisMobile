@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import Dashboard from './screens/Dashboard';
-import store from './store/store'
 import { Provider } from 'react-redux';
+
+import store from './store/store'
+import Dashboard from './screens/Dashboard';
 
 export default class App extends React.Component {
   render() {

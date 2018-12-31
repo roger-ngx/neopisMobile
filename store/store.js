@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import { neopisReducer } from './neopisReducer';
 import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'remote-redux-devtools';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(neopisReducer, composeEnhancers(
-    applyMiddleware(thunk)
-  ));
+const store = createStore(neopisReducer, composeWithDevTools(
+  applyMiddleware(thunk)
+));
 
 export default store;

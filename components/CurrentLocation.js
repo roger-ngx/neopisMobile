@@ -13,8 +13,7 @@ const style = StyleSheet.create({
   },
   m_location_icon: {
     width: 22,
-    height: 31,
-    color: '#fff'
+    height: 31
   },
   m_location_address: {
     fontSize: 12,
@@ -32,12 +31,11 @@ const CurrentLocation = props =>
   </View>
 
 CurrentLocation.propTypes = {
-  location: PropTypes.string.isRequired
+  location: PropTypes.string
 }
 
 const mapStateToProps = state => ({
   location: state.location
 })
-
 
 export default connect(mapStateToProps)(CurrentLocation);

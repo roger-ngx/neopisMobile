@@ -52,8 +52,8 @@ if (prodConf && prodConf.websocket && prodConf.websocket.subDomain !== wsSubdoma
 }
 
 function getWSUrl(namespace = 'mqtt') {
-  const originalHost = window.location.hostname;
-  const originalPort = window.location.port;
+  const originalHost = "neopis.thingplus.net";
+  const originalPort = "";
   const originalHostArray = originalHost.split('.');
   let wsHost = originalHost;
 
@@ -71,7 +71,7 @@ function getWSUrl(namespace = 'mqtt') {
 
   const wsUrl = `${wsHost}/${namespace}`;
 
-  log.debug('[wsService] wsUrl', window.location, originalHost, originalPort, wsUrl);
+  log.debug('[wsService] wsUrl', originalHost, originalPort, wsUrl);
 
   return wsUrl;
 }

@@ -1,14 +1,17 @@
 import loglevel from 'loglevel';
 import _ from 'lodash';
+import { AsyncStorage } from "react-native"
 
 const LOG_LEVEL = ['TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR', 'SILENT'];
 
-const defaultLogLevel = sessionStorage.getItem('logLevel') || 'info';
-// after this, loglevel.getLogger() instance follow this level.
-loglevel.setLevel(defaultLogLevel);
+(async () => {
+  const defaultLogLevel = AsyncStorage.getItem('logLevel') || 'info';
+  // after this, loglevel.getLogger() instance follow this level.
+  loglevel.setLevel(defaultLogLevel);
+})();
 
-loglevel.setAllLogLevel = (level) => {
-  sessionStorage.setItem('logLevel', level);
+loglevel.setAllLogLevel = async (level) => {
+  await AsyncStorage.setItem('logLevel', level);
   _.forOwn(loglevel.getLoggers(), (logger) => {
     if (logger.name === 'webpack-dev-server') {
       return;
@@ -25,8 +28,8 @@ loglevel.showAllLogLevel = () => {
   return loggerLevels;
 };
 
-loglevel.setLogLevel = (level) => {
-  sessionStorage.setItem('logLevel', level);
+loglevel.setLogLevel = async (level) => {
+  await AsyncStorage.setItem('logLevel', level);
   loglevel.setLevel(level);
 };
 
