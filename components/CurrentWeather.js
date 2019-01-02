@@ -2,6 +2,7 @@ import React from 'react';
 import image from '../images/weather.png'
 import { PropTypes } from 'prop-types';
 import { View, Image, Text, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 
 const style = StyleSheet.create({
     m_weather: {
@@ -42,4 +43,9 @@ CurrentWeather.propTypes = {
     humidity: PropTypes.number
 }
 
-export default CurrentWeather;
+const mapStateToProps = state => ({
+    temperature: state.weather.temperature,
+    humidity: state.weather.humidity
+})
+
+export default connect(mapStateToProps)(CurrentWeather);

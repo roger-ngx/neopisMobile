@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { ART, StyleSheet, Dimensions } from 'react-native';
 const { Surface, Group, Shape, Text, Path } = ART;
 import * as d3 from 'd3';
+import { connect } from 'react-redux';
+
+import { chartDataSelector } from '../store/neopisSelectors';
 
 export const ENERGY = 0;
 export const BATTERY = 1;
@@ -307,73 +310,16 @@ class PowerLineChart extends Component {
             left: 10
         };
 
-        var {height, width} = Dimensions.get('window');
+        var { height, width } = Dimensions.get('window');
 
         this.state = {
             width: width - 2 * this.margin.left,
             height: 320,
-            data: [
-                {
-                    name: "USA",
-                    values: [
-                        { time: "2000", value: "100" },
-                        { time: "2001", value: "110" },
-                        { time: "2002", value: "145" },
-                        { time: "2003", value: "241" },
-                        { time: "2004", value: "101" },
-                        { time: "2005", value: "90" },
-                        { time: "2006", value: "10" },
-                        { time: "2007", value: "35" },
-                        { time: "2008", value: "21" },
-                        { time: "2009", value: "201" },
-                    ]
-                },
-                {
-                    name: "Canada",
-                    values: [
-                        { time: "2000", value: "200" },
-                        { time: "2001", value: "120" },
-                        { time: "2002", value: "33" },
-                        { time: "2003", value: "21" },
-                        { time: "2004", value: "51" },
-                        { time: "2005", value: "190" },
-                        { time: "2006", value: "120" },
-                        { time: "2007", value: "85" },
-                        { time: "2008", value: "221" },
-                        { time: "2009", value: "101" },
-                    ]
-                },
-                {
-                    name: "Mexico",
-                    values: [
-                        { time: "2000", value: "50" },
-                        { time: "2001", value: "10" },
-                        { time: "2002", value: "5" },
-                        { time: "2003", value: "71" },
-                        { time: "2004", value: "20" },
-                        { time: "2005", value: "9" },
-                        { time: "2006", value: "220" },
-                        { time: "2007", value: "235" },
-                        { time: "2008", value: "61" },
-                        { time: "2009", value: "10" },
-                    ]
-                }
-            ]
         };
     }
 
     componentDidMount() {
-        var parseDate = d3.timeParse("%Y");
-        var data = this.state.data;
-
-        data.forEach(function (d) {
-            d.values.forEach(function (d) {
-                d.time = parseDate(d.time);
-                d.value = +d.value;
-            });
-        });
-
-        this.setState({data});
+        
     }
 
     render() {
@@ -381,11 +327,11 @@ class PowerLineChart extends Component {
         return <Surface width={this.state.width + 20} height={this.state.height + 100}>
             <Group x={this.margin.left} y={this.margin.top}>
 
-                <XAxis width={this.state.width} height={this.state.height} data={this.state.data} />
+                <XAxis width={this.state.width} height={this.state.height} data={this.props.data} />
 
-                <YAxis width={this.state.width} height={this.state.height} data={this.state.data} />
+                <YAxis width={this.state.width} height={this.state.height} data={this.props.data} />
 
-                <Lines width={this.state.width} height={this.state.height} data={this.state.data} gradients={this.gradients}></Lines>
+                <Lines width={this.state.width} height={this.state.height} data={this.props.data} gradients={this.gradients}></Lines>
 
                 {/* <MouseOverEffect width={this.state.width} height={this.state.height} data={this.props.data} gradients={this.gradients} /> */}
             </Group>
@@ -393,4 +339,8 @@ class PowerLineChart extends Component {
     }
 }
 
-export default PowerLineChart;
+const mapStateToProps = state => ({
+    data: chartDataSelector(state)
+})
+
+export default connect(mapStateToProps)(PowerLineChart);
