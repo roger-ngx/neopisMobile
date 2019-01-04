@@ -9,15 +9,17 @@ import { PagerDotIndicator, IndicatorViewPager } from 'rn-viewpager';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 
-import { SOURCE } from '../components/CurrentElectricityValue';
 import CurentLocation from '../components/CurrentLocation'
 import CurrentWeather from '../components/CurrentWeather';
 import CurrentMoment from '../components/CurrentMoment';
-import CurrentElectricityValue from '../components/CurrentElectricityValue';
-import CurrentPowerPercentage from '../components/CurrentPowerPercentage';
 import PowerLineChart from '../components/PowerLineChart'
 
-if(__DEV__) {
+import battery1 from '../assets/images/charge.png';
+import battery2 from '../assets/images/discharge.png';
+import electricity from '../assets/images/energy.png';
+import energy from '../assets/images/solar.png';
+
+if (__DEV__) {
   import('../ReactotronConfig').then(() => console.log('Reactotron Configured'))
 }
 
@@ -39,6 +41,9 @@ import {
 import gwInfo from './gatewayInfo';
 import sensorService from '../services/sensorService';
 import socket from '../services/wsServices';
+import Card from '../components/Card';
+
+import { SOURCE, BATTERY_1, BATTERY_2, ELECTRICITY } from '../components/CurrentElectricityValue';
 
 const SERIES_DATA_PATH = 'data.series.value';
 class Dashboard extends Component {
@@ -50,7 +55,7 @@ class Dashboard extends Component {
   }
 
   _renderDotIndicator() {
-    return <PagerDotIndicator pageCount={3} />;
+    return <PagerDotIndicator pageCount={4} />;
   }
 
   componentDidMount() {
@@ -75,15 +80,25 @@ class Dashboard extends Component {
         <IndicatorViewPager
           style={styles.viewPager}
           indicator={this._renderDotIndicator()}>
-          <View style={styles.pageStyle}>
-            <View style={styles.electricValues}>
-              <CurrentElectricityValue type={SOURCE} value='3456.7' unit='MWh' description='This month' />
-              <CurrentElectricityValue type={SOURCE} value='9821.3' unit='kWh' description='Today' />
-            </View>
-            <View style={styles.electricValues}>
-              <CurrentPowerPercentage />
-            </View>
-          </View>
+
+          <Card type={SOURCE} titleName='태양광 발전량'
+            titleImage={energy} description='현재 발전 전력'
+            data={this.props.solarEnergy} />
+
+          <Card type={BATTERY_1} titleName='ESS충전량'
+            titleImage={battery1}
+            description={this.props.isESSCharging ? '현재 ESS 충전 전력' : '현재 ESS 방전 전력'}
+            data={this.props.ESSCharge}
+            isActive={this.props.isESSCharging} />
+
+          <Card type={BATTERY_2} titleName='ESS방전량'
+            titleImage={battery2} data={this.props.ESSDischarge}
+            isActive={!this.props.isESSCharging}
+            batteryStatus={this.props.batteryStatus} />
+
+          <Card type={ELECTRICITY} titleName='계통 송수전 전력량'
+            titleImage={electricity} description='현재 계통 송수전 전력'
+            data={this.props.electricityInfo} />
         </IndicatorViewPager>
 
         <View style={styles.chart}>
@@ -638,7 +653,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   viewPager: {
-    height: 200,
+    height: 230,
     alignSelf: "stretch",
     marginTop: 20,
   },

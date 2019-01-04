@@ -1,6 +1,6 @@
 import React from 'react';
-import './BatteryMode.scss';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
+
 export const ABNORMAL = 1, MANUAL = 2, AUTOMATIC = 3;
 
 const styles = StyleSheet.create({
@@ -8,16 +8,16 @@ const styles = StyleSheet.create({
     width: 87,
     height: 30,
     borderRadius: 15,
-    border: 'solid 1px #7ed321',
+    borderColor: '#7ed321',
+    borderWidth: 1,
+    borderStyle: 'solid',
     textAlign: 'center',
-    margin: 9,
-    display: 'table'
+    margin: 9
   },
   bm_content: {
+    height: 30,
     fontSize: 12,
-    color: '#7ed321',
-    display: 'table-cell',
-    verticalAlign: 'middle'
+    color: '#7ed321'
   }
 })
 
@@ -29,11 +29,11 @@ const BatteryMode = props => {
     if (status === AUTOMATIC) return 'Automatic';
   }
 
-  return <div style={styles.bm_container}>
-    <span style={styles.bm_content}>
+  return <View style={styles.bm_container}>
+    <Text style={styles.bm_content}>
       {status(props.status)}
-    </span>
-  </div>
+    </Text>
+  </View>
 }
 
 export default BatteryMode;

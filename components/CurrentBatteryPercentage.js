@@ -1,8 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { StyleSheet } from 'react-native';
-
-import './CurrentBatteryPercentage.scss'
+import { StyleSheet, View, Text } from 'react-native';
 
 const styles = StyleSheet.create({
   m_battery: {
@@ -22,6 +20,10 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     color: '#2e2d2f'
   },
+  battery_volumn: {
+    height: 41
+    
+  },
   battery_value: {
     fontFamily: 'HiraKakuProN-W3',
     fontSize: 20,
@@ -38,31 +40,22 @@ const styles = StyleSheet.create({
 
 const CurrentBatteryPercentage = props => {
 
-  return <a style={styles.card_link} href={`/#/gateways/${props.gwId}/sensors/${props.sensorId}`}>
-    <div style={styles.m_battery}>
-      <div style={styles.battery_image}>
-        <div style={styles.battery_volumn}>
-        </div>
-      </div>
-      <div style={styles.battery_info}>
-        <div style={styles.battery_value}>
-          <span>{props.value}%</span>
-        </div>
-        <div style={styles.battery_label}>
-          <span>배터리량</span>
-        </div>
-      </div>
-    </div>
-  </a>
+  return <View onPress={() => LinkingIOS.openURL(`/#/gateways/${props.gwId}/sensors/${props.sensorId}`)}>
+    <View style={styles.m_battery}>
+      <View style={styles.battery_image}>
+        <View style={styles.battery_volumn}>
+        </View>
+      </View>
+      <View style={styles.battery_info}>
+        <Text style={styles.battery_value}>{props.value}%</Text>
+        <Text style={styles.battery_label}>배터리량</Text>
+      </View>
+    </View>
+  </View>
 }
 
 CurrentBatteryPercentage.propTypes = {
-  mobile: PropTypes.bool,
   value: PropTypes.number.isRequired
-}
-
-CurrentBatteryPercentage.defaultProps = {
-  mobile: false
 }
 
 export default CurrentBatteryPercentage;

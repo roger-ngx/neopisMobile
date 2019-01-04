@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native';
-import image from '../images/time.png'
+import image from '../assets/images/time.png'
 import moment from 'moment';
 import 'moment/locale/ko';
 

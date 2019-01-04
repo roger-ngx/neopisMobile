@@ -1,26 +1,16 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3'
 import { PropTypes } from 'prop-types';
-import './PowerDonutChart.scss';
-import { SOURCE, BATTERY_1, ELECTRICITY } from '../CurrentElectricityValue/mobile/CurrentElectricityValueMobile';
-import { StyleSheet } from 'react-native';
+import { ART, StyleSheet, View } from 'react-native';
+
+import { SOURCE, BATTERY_1, ELECTRICITY } from './CurrentElectricityValue';
+
+const { Surface, Group, Text, Shape } = ART;
 
 const styles = StyleSheet.create({
-    pie_value: {
-        fontSize: 26,
-        lineHeight: 26,
-        textAlign: 'center',
-        color: '#ffffff'
-    },
-    pie_unit: {
-        fontSize: 12,
-        textAlign: 'center',
-        color: '#b8b8c2',
-        paddingTop: 4
-    },
     card_link: {
         color: 'transparent',
-        textDecoration: 'none currentcolor solid'
+        textDecorationLine: 'none'
     }
 })
 
@@ -61,7 +51,6 @@ class DonutChart extends Component {
         const arcs = [];
 
         for (let i = 0; i < noOfSeg; i++) {
-
             const startAngle = sectionAngles[i].startAngle;
             const stopAngle = sectionAngles[i].endAngle;
 
@@ -76,41 +65,37 @@ class DonutChart extends Component {
             arcs.push(arc);
         }
 
-        return <a style={styles.card_link} href={`/#/gateways/${this.props.gwId}/sensors/${this.props.sensorId}`}>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <div style={{ textAlign: 'center' }}>
-                    <svg width={w} height={h}>
-                        <g transform={`translate(${w / 2}, ${h / 2})`}>
-                            {
-                                arcs.map((arc, index) => (
-                                    <path
-                                        key={index}
-                                        d={arc}
-                                        fill={this.colors[index]}
-                                    />
-                                ))
-                            }
+        const arcElements = arcs.map((arc, index) => <Shape key={index}
+            d={arc} fill={this.colors[index]} />);
 
-                            <text style={styles.pie_value}
+        return <View onPress={() => LinkingIOS.openURL(`/#/gateways/${props.gwId}/sensors/${props.sensorId}`)}>
+            <View style={{ display: 'flex', flexDirection: 'column' }}>
+                <View style={{ textAlign: 'center' }}>
+                    <Surface width={w} height={h}>
+                        <Group x={w / 2} y={h / 2}>
+                            {arcElements}
+
+                            <Text font={{ fontFamily: 'HiraKakuProN-W3', fontSize: 26 }}
                                 fill='#ffffff'
-                                textAnchor="middle">
-                                {this.props.percentage}%
-                    </text>
+                                alignment="center"
+                                y={-20}>
+                                {`${this.props.percentage}%`}
+                            </Text>
 
-                            <text style={styles.pie_unit}
+                            <Text font={{ fontFamily: 'HiraKakuProN-W3', fontSize: 13 }}
                                 fill='#b8b8c2'
-                                textAnchor="middle"
-                                y={20}>
+                                alignment="center"
+                                y={10}>
                                 {this.props.electricity}
-                            </text>
-                        </g>
-                    </svg>
-                </div>
-                <span style={{ color: '#b8b8c2', textAlign: 'center' }}>
+                            </Text>
+                        </Group>
+                    </Surface>
+                </View>
+                {/* <Text style={{ color: '#b8b8c2', textAlign: 'center' }}>
                     {this.props.description}
-                </span>
-            </div>
-        </a>
+                </Text> */}
+            </View>
+        </View>
     }
 }
 

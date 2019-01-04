@@ -1,5 +1,5 @@
 import React from 'react';
-import image from '../images/weather.png'
+import image from '../assets/images/weather.png'
 import { PropTypes } from 'prop-types';
 import { View, Image, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';

@@ -2,7 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 
-import image from '../images/location.png';
+import image from '../assets/images/location.png';
 import { StyleSheet, View, Text, Image } from 'react-native';
 
 const style = StyleSheet.create({
