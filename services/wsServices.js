@@ -53,7 +53,7 @@ if (prodConf && prodConf.websocket && prodConf.websocket.subDomain !== wsSubdoma
 
 function getWSUrl(namespace = 'mqtt') {
   const originalHost = "neopis.thingplus.net";
-  const originalPort = "";
+  const originalPort = 80;
   const originalHostArray = originalHost.split('.');
   let wsHost = originalHost;
 
@@ -212,10 +212,12 @@ function initSocketChannel() {
 
   log.debug('wsService - getSocketChannel: socket is not created, and connect', socket);
 
-  socket = socketio(getWSUrl(wsNamespace), {
+  socket = socketio('http://neopis.thingplus.net/mqtt', {
     reconnection: true,
     reconnectionDelay: 1000
   });
+
+  console.log('socket', socket, socket.io.uri);
 
   log.debug('socket', socket, socket.io.uri);
 
@@ -225,6 +227,8 @@ function initSocketChannel() {
     });
 
   socket.on('connect', () => {
+  console.log('WebSocket is connected', socket.socket);
+
     log.info('WebSocket is connected', socket.socket);
     isConnect = true;
 

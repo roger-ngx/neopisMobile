@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 export const SOURCE = 1;
 export const BATTERY_1 = 2;
@@ -8,12 +9,23 @@ export const ELECTRICITY = 4;
 
 const CurrentElectricityValue = (props) => {
     const separatorStyle = [style.m_ev_separator,
-    !props.isActive && style.gbg_deactive,
-    +props.type === SOURCE && style.gbg_source,
-    +props.type === BATTERY_1 && props.isActive && style.gbg_battery_1,
-    +props.type === BATTERY_2 && props.isActive && style.gbg_battery_2,
-    +props.type === ELECTRICITY && style.gbg_electricity
-    ];
+    !props.isActive && style.gbg_deactive];
+
+    const linearColors = type => {
+        switch (type) {
+            case SOURCE:
+                return ['#ffae33', '#ff009e'];
+
+            case BATTERY_1:
+                return ['#338fff', '#42e27f', '#ffea9a'];
+
+            case BATTERY_2:
+                return ['#ffea9a', '#42e27f', '#338fff'];
+
+            case ELECTRICITY:
+                return ['#3023ae', '#c86dd7'];
+        }
+    };
 
     return <View style={style.m_electricity_value}>
         <View style={style.m_ev_value_unit}>
@@ -24,7 +36,10 @@ const CurrentElectricityValue = (props) => {
                 {props.unit}
             </Text>
         </View>
-        <View style={separatorStyle}></View>
+        <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+            colors={linearColors(+props.type)}
+            style={separatorStyle}>
+        </LinearGradient>
         <Text style={style.m_ev_description}>
             {props.description}
         </Text>

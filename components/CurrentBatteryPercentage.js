@@ -1,6 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { StyleSheet, View, Text } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 const styles = StyleSheet.create({
   m_battery: {
@@ -18,11 +19,11 @@ const styles = StyleSheet.create({
     width: 97,
     height: 41,
     borderRadius: 2,
-    color: '#2e2d2f'
+    backgroundColor: '#2e2d2f'
   },
   battery_volumn: {
-    height: 41
-    
+    height: 41,
+    backgroundColor: 'green'
   },
   battery_value: {
     fontFamily: 'HiraKakuProN-W3',
@@ -43,8 +44,12 @@ const CurrentBatteryPercentage = props => {
   return <View onPress={() => LinkingIOS.openURL(`/#/gateways/${props.gwId}/sensors/${props.sensorId}`)}>
     <View style={styles.m_battery}>
       <View style={styles.battery_image}>
-        <View style={styles.battery_volumn}>
-        </View>
+        {/* <View style={[{ width: 0.97 * props.value }, styles.battery_volumn]}>
+        </View> */}
+        <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+          colors={['#ffea9a', '#42e27f', '#338fff']}
+          style={[{ width: 0.97 * props.value }, styles.battery_volumn]}>
+        </LinearGradient>
       </View>
       <View style={styles.battery_info}>
         <Text style={styles.battery_value}>{props.value}%</Text>

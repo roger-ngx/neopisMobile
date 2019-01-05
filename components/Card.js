@@ -14,17 +14,11 @@ const itemWidth = Dimensions.get("window").width;
 const styles = StyleSheet.create({
   m_db_card: {
     display: 'flex',
-    // flex: 1,
-    // alignSelf: 'stretch',
     flexDirection: 'column',
     alignItems: 'center',
+    width: itemWidth,
     borderRadius: 5,
     color: '#18161a',
-    width: itemWidth,
-    
-    // marginLeft: 40,
-    // marginRight: 40,
-
     paddingHorizontal: 27,
     paddingBottom: 32,
   },

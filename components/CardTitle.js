@@ -39,7 +39,7 @@ const CardTitle = (props) =>
 
 CardTitle.propTypes = {
   title: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
+  // image: PropTypes.object.isRequired,
 }
 
 export default CardTitle;
